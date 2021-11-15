@@ -1,6 +1,8 @@
 package com.example.practicaSpring1111.Entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Cliente {
     private String nombre;
     private String dni;

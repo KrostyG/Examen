@@ -14,8 +14,14 @@ public class ClienteRepository {
 
     private ArrayList<Cliente> listaClientes= new ArrayList<>();
 
-    public Optional<Cliente> buscarCliente(String nombre){
-        return listaClientes.stream().filter(d -> d.getNombre().equals(nombre)).findFirst();
+    public Optional<Cliente> buscarCliente(String dni){
+        return listaClientes.stream().filter(cliente -> cliente.getDni().equals(dni)).findFirst();
+    }
+    public void actualizarClientePorId(Cliente cActualizar, Cliente cActualizado){
+        cActualizar.setDni(cActualizado.getDni());
+        cActualizar.setDomicilio(cActualizado.getDomicilio());
+        cActualizar.setNombre(cActualizado.getNombre());
+
     }
 
 }
