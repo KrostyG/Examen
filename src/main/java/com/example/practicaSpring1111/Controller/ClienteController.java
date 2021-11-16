@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/clientes")
 public class ClienteController {
 
     @Autowired
@@ -25,7 +24,8 @@ public class ClienteController {
     public ArrayList<Cliente> getClientes(){
         return clienteRepository.getListaClientes();
     }
-    @GetMapping("/{dni}")
+
+    @GetMapping("buscarCliente/{dni}")
     public ResponseEntity<Cliente> getClientes(@PathVariable String dni) throws nonexistentClientException {
         Optional<Cliente> optionalCliente= clienteRepository.buscarCliente(dni);
         if(optionalCliente.isEmpty()){
@@ -34,12 +34,12 @@ public class ClienteController {
         return ResponseEntity.ok(optionalCliente.get());
     }
 
-    @PostMapping
+    @PostMapping("/agregarCliente")
     public void agregarCliente (@RequestBody Cliente cliente){
         clienteRepository.getListaClientes().add(cliente);
     }
 
-    @DeleteMapping("/{dni}")
+    @DeleteMapping("borrarCliente/{dni}")
     public ResponseEntity <Cliente> borrarClienteException(@PathVariable String dni) throws nonexistentClientException {
         Optional<Cliente> optionalCliente = clienteRepository.buscarCliente(dni);
         if(optionalCliente.isEmpty()){
@@ -53,7 +53,7 @@ public class ClienteController {
         Optional<Cliente> optionalCliente = clienteRepository.buscarCliente(dni);
         optionalCliente.ifPresent(value -> clienteRepository.getListaClientes().remove(value));
     }
-     @PutMapping
+     @PutMapping("/actualizarCliente")
         public void modificaCliente (@RequestBody Cliente cliente){
          eliminarCliente(cliente.getDni());
          clienteRepository.getListaClientes().add(cliente);
