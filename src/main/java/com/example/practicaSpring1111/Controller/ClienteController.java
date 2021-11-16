@@ -36,7 +36,9 @@ public class ClienteController {
 
     @PostMapping("/agregarCliente")
     public void agregarCliente (@RequestBody Cliente cliente){
+        clienteRepository.buscarCliente(cliente.getDni());
         clienteRepository.getListaClientes().add(cliente);
+
     }
 
     @DeleteMapping("borrarCliente/{dni}")
