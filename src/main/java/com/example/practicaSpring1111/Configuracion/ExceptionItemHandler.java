@@ -1,6 +1,7 @@
 package com.example.practicaSpring1111.Configuracion;
 
 
+import com.example.practicaSpring1111.Controller.ItemExistentException;
 import com.example.practicaSpring1111.Controller.nonexistentItemException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -17,5 +18,11 @@ public class ExceptionItemHandler extends ResponseEntityExceptionHandler {
             Exception ex, WebRequest request){
         return handleExceptionInternal(ex,"Este item No existe",
                 new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+    @ExceptionHandler({ ItemExistentException.class })
+    protected ResponseEntity<Object> itemExistente(
+            Exception ex, WebRequest request) {
+        return handleExceptionInternal(ex, "Este Item ya existe",
+                new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 }
